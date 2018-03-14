@@ -13,11 +13,14 @@ public class Employee{
     //employee id, employee name, gross sales (amount in dollars) and commission rate.
     public var employeeID: Int
     public var employeeName: String
+    public var gross_sales: Double
+    public var commission_rate: Double
     
     //One designated initializer which initializes all the properties with values.
     public init(employeeID: Int, employeeName: String, gross_sales: Double, commission_rate: Double){
         self.employeeID=employeeID
         self.employeeName=employeeName
+        //no negative values for gross sales
         if(gross_sales >= 0)
         {
             self.gross_sales=gross_sales
@@ -26,6 +29,7 @@ public class Employee{
         else{
             self.gross_sales=0
         }
+        //no negative values for commision rate
         if(gross_sales >= 0){
         self.commission_rate=commission_rate
         }
@@ -47,28 +51,6 @@ public class Employee{
         self.init(employeeID:employeeID,employeeName:employeeName,gross_sales:0,commission_rate:0)
     }
     
-    //no negative values for gross sales
-    public var gross_sales: Double = 0 {
-        willSet {
-            gross_sales = newValue
-        }
-        didSet {
-            if gross_sales < 0{
-                gross_sales = oldValue
-            }
-        }
-    }
-    //no negative values for commision rate
-    public var commission_rate: Double = 0 {
-        willSet{
-            commission_rate = newValue
-        }
-        didSet{
-            if commission_rate < 0{
-            commission_rate = 0
-            }
-        }
-    }
     //Add a method in the class – calculateSalary()-> Double which calculates and returns  the earnings of an
     //employee( formula: gross sales * commission rate/100)
     public func calculateSalary() -> Double {
