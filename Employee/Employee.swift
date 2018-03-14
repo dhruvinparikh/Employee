@@ -13,15 +13,25 @@ public class Employee{
     //employee id, employee name, gross sales (amount in dollars) and commission rate.
     public var employeeID: Int
     public var employeeName: String
-    //public var gross_sales: Double
-    public var commission_rate: Double
     
     //One designated initializer which initializes all the properties with values.
     public init(employeeID: Int, employeeName: String, gross_sales: Double, commission_rate: Double){
         self.employeeID=employeeID
         self.employeeName=employeeName
-        self.gross_sales=gross_sales
+        if(gross_sales >= 0)
+        {
+            self.gross_sales=gross_sales
+            
+        }
+        else{
+            self.gross_sales=0
+        }
+        if(gross_sales >= 0){
         self.commission_rate=commission_rate
+        }
+        else{
+            self.commission_rate=0
+        }
     }
     
     //One designated initializer which initializes all the properties with default values.
@@ -38,14 +48,36 @@ public class Employee{
     }
     
     //no negative values for gross sales
-    var gross_sales: Double = 0 {
-        willSet(newTotalSteps) {
-            print("About to set totalSteps to \(newTotalSteps)")
+    public var gross_sales: Double = 0 {
+        willSet {
+            gross_sales = newValue
         }
         didSet {
-            if totalSteps > oldValue  {
-                print("Added \(totalSteps - oldValue) steps")
+            if gross_sales < 0{
+                gross_sales = oldValue
             }
         }
+    }
+    //no negative values for commision rate
+    public var commission_rate: Double = 0 {
+        willSet{
+            commission_rate = newValue
+        }
+        didSet{
+            if commission_rate < 0{
+            commission_rate = 0
+            }
+        }
+    }
+    //Add a method in the class – calculateSalary()-> Double which calculates and returns  the earnings of an
+    //employee( formula: gross sales * commission rate/100)
+    public func calculateSalary() -> Double {
+        return gross_sales * commission_rate/100
+    }
+    
+    //Also add a method which returns the sting representation of all the property values.
+    public func toString() -> String{
+        
+        return "EmployeeID : " + String(self.employeeID) + ", EmployeeName : " + self.employeeName + ", gross sales : " + String(self.gross_sales) + ", commission rate : " + String(self.commission_rate)
     }
 }
